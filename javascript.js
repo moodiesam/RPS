@@ -1,15 +1,17 @@
 let computerScore = 0;
 let playerScore = 0;
 
-function game(playRound) {
+//function game(playRound) {
 
-    let randomNumber = Math.floor(Math.random() * 3);
+    
 
-    let computerSelection = getComputerChoice(randomNumber);
-    let playerSelection = prompt("Rock, Paper, Scissors, Shoot!").toLowerCase();
+  //  let computerSelection = getComputerChoice(randomNumber);
+ //   let playerSelection = 
 
-
+//    console.log(playerSelection);
+    
     function getComputerChoice() {
+        let randomNumber = Math.floor(Math.random() * 3);
         if (randomNumber === 0) {
             return "rock";
         } else if (randomNumber === 1) {
@@ -48,28 +50,70 @@ function game(playRound) {
         }
     }
 
-    
-        
-        console.log(`The Computer threw ${computerSelection}!`);
-        console.log(playRound(computerSelection, playerSelection));
-        console.log(`Computer - ${computerScore}, Player - ${playerScore}`);
+
+// UI
+
+const rockBtn = document.getElementById('rock');
+const paperBtn = document.getElementById('paper');
+const scissorsBtn = document.getElementById('scissors');
+const playerScoreDisp = document.getElementById('playerScoreDisp');
+const computerScoreDisp = document.getElementById('computerScoreDisp');
+const roundResults = document.getElementById('roundResults');
+const gameOverMessage = document.getElementById('gameOverMessage');
+const roundInfo = document.getElementById('roundInfo');
+
+rockBtn.addEventListener('click', () => handleClick('rock'));
+paperBtn.addEventListener('click', () => handleClick('paper'));
+scissorsBtn.addEventListener('click', () => handleClick('scissors'));
+
+function handleClick(playerSelection) {
+
+
+    const computerSelection = getComputerChoice();
+    roundResults.textContent = `${(playRound(computerSelection, playerSelection))}`;
+    roundInfo.textContent = `The computer threw ${computerSelection}!`
+    updateScore();
+    gameOver();
 
 }
 
+function updateScore () {
+    playerScoreDisp.textContent = `Player: ${playerScore}`;
+    computerScoreDisp.textContent = `Computer: ${computerScore}`;
+};
 
-for (let i = 0; i < 5; i++) {
-    game();
-    if (i < 4) {
-        console.log("Next Game");
+function gameOver () {
+    if (playerScore === 5) {
+        gameOverMessage.textContent = "You win the tournament! Congratulations!!";
+    } else if (computerScore === 5) {
+        gameOverMessage.textContent = "You lost. Try again!";
     } else {
-        if (computerScore < playerScore) {
-            console.log("You win the tournament!");
-        } else if (computerScore > playRound) {
-            console.log("You lost the tournament to the Computer!");
-        } else {
-            console.log("The tournament is a tie! Try again");
-        }
-        console.log("Game Over");
+        //continue
     }
 }
+
+
+        
+ //       console.log(`The Computer threw ${computerSelection}!`);
+    //    console.log(playRound(computerSelection, playerSelection));
+  //      console.log(`Computer - ${computerScore}, Player - ${playerScore}`);
+
+//}
+
+
+//for (let i = 0; i < 5; i++) {
+//    game();
+//    if (i < 4) {
+//        console.log("Next Game");
+ //   } else {
+//        if (computerScore < playerScore) {
+//            console.log("You win the tournament!");
+ //       } else if (computerScore > playerScore) {
+ //           console.log("You lost the tournament to the Computer!");
+ //       } else {
+ //           console.log("The tournament is a tie! Try again");
+//        }
+ //       console.log("Game Over");
+ //   }
+//}
 
